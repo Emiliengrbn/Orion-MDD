@@ -1,0 +1,58 @@
+.welcome-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+
+  .logo {
+    width: 400px;
+    max-width: 80vw;
+    margin-bottom: 40px;
+    display: block;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 24px;
+
+    button {
+      min-width: 150px;
+      font-weight: 500;
+      background: #fff;
+      color: #333;
+      border: 1.5px solid #333;
+      box-shadow: none;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+
+      &:hover {
+        background: #f5f5f5;
+        border-color: #a084e8;
+        color: #a084e8;
+      }
+    }
+  }
+}
+
+// Responsive pour mobile
+@media (max-width: 600px) {
+  .welcome-container {
+    .logo {
+      width: 200px;
+      margin-bottom: 32px;
+    }
+    .button-group {
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      align-items: center;
+
+      button {
+        width: 80vw;
+        max-width: 260px;
+      }
+    }
+  }
+}

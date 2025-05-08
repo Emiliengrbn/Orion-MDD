@@ -1,0 +1,23 @@
+<div class="themes-page">
+    <div class="themes-list">
+      <mat-card class="theme-card" *ngFor="let theme of themes">
+        <mat-card-title>{{ theme.title }}</mat-card-title>
+        <mat-card-content>
+          <p>{{ theme.description }}</p>
+        </mat-card-content>
+        <button
+          mat-raised-button
+          class="subscribe-btn"
+          [color]="theme.subscribed ? 'warn' : 'primary'"
+          [ngClass]="{
+            'already-subscribed': theme.subscribed,
+            'not-subscribed': !theme.subscribed
+          }"
+          (click)="toggleSubscription(theme)"
+        >
+          {{ theme.subscribed ? 'Se désabonner' : "S'abonner" }}
+        </button>
+      </mat-card>
+    </div>
+  </div>
+  

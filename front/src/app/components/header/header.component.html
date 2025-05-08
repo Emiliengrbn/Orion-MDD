@@ -1,0 +1,9 @@
+<div class="header-container">
+    <img src="/assets/logo_p6.png" alt="logo" class="logo" />
+    <div class="isLoggedIn-container" *ngIf="isLoggedIn">
+        <p [routerLink]="'/'">Se déconnecter</p>
+        <p [routerLink]="'/articles'" [class.active]="isRouteActive('/articles')">Articles</p>
+        <p [routerLink]="'/themes'" [class.active]="isRouteActive('/themes')">Thèmes</p>
+        <img src="/assets/image.png" alt="user" />
+    </div>
+</div>
