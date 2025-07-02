@@ -22,21 +22,27 @@ Assurez-vous d'avoir installé sur votre machine :
 
 1.1 **Créez la base de données**
 
-   ```CREATE DATABASE```
+   ```sql
+   CREATE DATABASE;```
 
 1.2 **Initialisez les tables de la base de données**
 
-   ```USE ma_base; ```
+   ```sql
+   USE ma_base; ```
 
 Table theme
-   ```CREATE TABLE theme (
+
+   ```sql
+   CREATE TABLE theme (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      title VARCHAR(255),
      content VARCHAR(255)
    ) ENGINE=InnoDB; ```
 
 Table user
-   ```CREATE TABLE user (
+
+   ```sql
+   CREATE TABLE user (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      username VARCHAR(255) NOT NULL,
      email VARCHAR(255) NOT NULL,
@@ -46,7 +52,9 @@ Table user
    ) ENGINE=InnoDB; ```
 
 Table article
-   ```CREATE TABLE article (
+
+   ```sql
+   CREATE TABLE article (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      title VARCHAR(255) NOT NULL,
      author VARCHAR(255) NOT NULL,
@@ -58,7 +66,9 @@ Table article
    ) ENGINE=InnoDB; ```
 
 Table messages
-   ```CREATE TABLE messages (
+
+   ```sql
+   CREATE TABLE messages (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      article_id INT NOT NULL,
      user_id INT NOT NULL,
