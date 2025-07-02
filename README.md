@@ -29,11 +29,13 @@ Assurez-vous d'avoir installé sur votre machine :
    ```USE ma_base;```
 
 -- Table theme
-   ```CREATE TABLE theme (
-     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-     title VARCHAR(255),
-     content VARCHAR(255)
-   ) ENGINE=InnoDB;```
+   ```
+      CREATE TABLE theme (
+      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255),
+      content VARCHAR(255)
+      ) ENGINE=InnoDB;
+   ```
 
 -- Table user
    ```CREATE TABLE user (
