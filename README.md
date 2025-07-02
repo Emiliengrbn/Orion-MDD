@@ -26,16 +26,16 @@ Assurez-vous d'avoir installé sur votre machine :
 
 1.2 **Initialisez les tables de la base de données**
 
-   ```USE ma_base;```
+   ```USE ma_base; ```
 
--- Table theme
+Table theme
    ```CREATE TABLE theme (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      title VARCHAR(255),
      content VARCHAR(255)
-   ) ENGINE=InnoDB;```
+   ) ENGINE=InnoDB; ```
 
--- Table user
+Table user
    ```CREATE TABLE user (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      username VARCHAR(255) NOT NULL,
@@ -43,9 +43,9 @@ Assurez-vous d'avoir installé sur votre machine :
      password VARCHAR(255) NOT NULL,
      created_at TIMESTAMP NULL,
      updated_at TIMESTAMP NULL
-   ) ENGINE=InnoDB;```
+   ) ENGINE=InnoDB; ```
 
--- Table article
+Table article
    ```CREATE TABLE article (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      title VARCHAR(255) NOT NULL,
@@ -55,9 +55,9 @@ Assurez-vous d'avoir installé sur votre machine :
      updated_at TIMESTAMP NULL,
      theme_id INT,
      FOREIGN KEY (theme_id) REFERENCES theme(id)
-   ) ENGINE=InnoDB;```
+   ) ENGINE=InnoDB; ```
 
--- Table messages
+Table messages
    ```CREATE TABLE messages (
      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
      article_id INT NOT NULL,
@@ -65,7 +65,7 @@ Assurez-vous d'avoir installé sur votre machine :
      content VARCHAR(255),
      FOREIGN KEY (article_id) REFERENCES article(id),
      FOREIGN KEY (user_id) REFERENCES user(id)
-   ) ENGINE=InnoDB;```
+   ) ENGINE=InnoDB; ```
 
 ## ⚙️ 2. Installation et lancement du Frontend (Angular)
 
