@@ -1,0 +1,43 @@
+<mat-toolbar>
+    <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>{{ article.title }}</span>
+</mat-toolbar>
+
+<div class="article-header">
+    <div class="metadata">
+        <span>{{ article.created_at }}</span>
+        <span>{{ article.author }}</span>
+        <span>{{ article.theme.title }}</span>
+    </div>
+    <div class="content">
+        <p>
+            {{ article.content }}
+        </p>
+    </div>
+    <mat-divider></mat-divider>
+</div>
+
+<section class="comments-section">
+    <h3>Commentaires</h3>
+
+    <ng-container *ngIf="messages">
+        <div class="comment-content" *ngFor="let message of messages">
+            <span class="comment-username">{{message.userName}}</span>
+            <mat-card class="comment-card">
+                <div class="comment-text">
+                    {{message.content}}
+                </div>
+            </mat-card>
+        </div>
+    </ng-container>
+
+    <mat-form-field class="comment-input" appearance="outline">
+        <textarea matInput placeholder="Écrivez ici votre commentaire" [(ngModel)]="newComment"></textarea>
+        <button mat-icon-button color="primary" (click)="sendComment()">
+            <mat-icon>send</mat-icon>
+        </button>
+    </mat-form-field>
+
+</section>

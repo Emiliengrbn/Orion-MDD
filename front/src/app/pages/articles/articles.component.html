@@ -1,23 +1,31 @@
 <div class="article-page">
-    <div class="actions-row">
-      <button mat-raised-button color="primary" class="create-btn">
-        Créer un article
-      </button>
-      <button mat-stroked-button class="sort-btn">
-        Trier par <mat-icon>arrow_drop_down</mat-icon>
-      </button>
-    </div>
-  
-    <div class="articles-list">
-      <mat-card class="article-card" *ngFor="let article of articles">
-        <mat-card-title>{{ article.title }}</mat-card-title>
-        <mat-card-subtitle>
-          {{ article.date }} - {{ article.author }}
-        </mat-card-subtitle>
-        <mat-card-content>
-          <p class="article-content">{{ article.content }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+  <div class="actions-row">
+    <button mat-raised-button color="primary" class="create-btn" [routerLink]="'/newArticle'">
+      Créer un article
+    </button>
+
+    <!-- Bouton avec menu déroulant -->
+    <button mat-stroked-button class="sort-btn" [matMenuTriggerFor]="sortMenu">
+      Trier par : {{ currentSortLabel }} <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <!-- Menu déroulant de tri -->
+    <mat-menu #sortMenu="matMenu">
+      <button mat-menu-item (click)="sortArticles('dateAsc')">Par date croissante</button>
+      <button mat-menu-item (click)="sortArticles('dateDesc')">Par date décroissante</button>
+      <button mat-menu-item (click)="sortArticles('author')">Par ordre alphabétique de l'auteur</button>
+    </mat-menu>
   </div>
-  
+
+  <div class="articles-list">
+    <mat-card class="article-card" *ngFor="let article of articles" (click)="viewArticle(article.id)">
+      <mat-card-title>{{ article.title }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ article.created_at }} - {{ article.author }}
+      </mat-card-subtitle>
+      <mat-card-content>
+        <p class="article-content">{{ article.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

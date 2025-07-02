@@ -9,6 +9,7 @@
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid #ccc;
+    width: 90%;
   
     .logo {
       height: 70px;
@@ -46,3 +47,97 @@
     }
   }
   
+
+.sidebar {
+  display: none;
+}
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 10px;
+    width: 100%;
+
+    .logo {
+      height: 40px;
+    }
+
+    .isLoggedIn-container {
+      display: none; // On cache le menu classique
+    }
+
+    .burger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 75px;
+      height: 32px;
+      cursor: pointer;
+      z-index: 1101; // au-dessus du header
+
+      span {
+        display: block;
+        width: 24px;
+        height: 3px;
+        margin: 3px 0;
+        background: #333;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 70vw;
+      max-width: 300px;
+      background: #fff;
+      border: solid 1px;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 16px;
+      transform: translateX(100%);
+      transition: transform 0.3s;
+      gap: 32px;
+
+      &.open {
+        transform: translateX(0);
+      }
+
+      p {
+        font-size: 20px;
+        margin-bottom: 24px;
+        cursor: pointer;
+
+        &.logout {
+          color: darkred;
+          font-weight: bold;
+        }
+      }
+
+      img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #e0e0e0;
+        padding: 4px;
+        position: absolute;
+        bottom: 85px;
+      }
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100%;
+      background: rgba(0,0,0,0.2);
+      z-index: 1099;
+    }
+  }
+}
