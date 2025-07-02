@@ -29,17 +29,20 @@ Assurez-vous d'avoir installé sur votre machine :
 2.1 **Clonez le projet**
 
    ```git clone https://github.com/Emiliengrbn/Orion-MDD.git```
+   
+2.2 **Dirigez vous vers le front**
+
    ```cd front```
 
-2.2 **Installez les dépendances**
+2.3 **Installez les dépendances**
 
    ```npm install```
 
-2.3 **Démarrez l'application**
+2.4 **Démarrez l'application**
 
    ```ng serve```
 
-2.4 **Accédez à l'application**
+2.5 **Accédez à l'application**
 
    [http://localhost:4200](http://localhost:4200)
    
