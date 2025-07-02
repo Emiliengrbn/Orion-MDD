@@ -26,46 +26,46 @@ Assurez-vous d'avoir installé sur votre machine :
 
 1.2 **Initialisez les tables de la base de données**
 
-```USE ma_base;```
+   ```USE ma_base;```
 
 -- Table theme
-```CREATE TABLE theme (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255),
-  content VARCHAR(255)
-) ENGINE=InnoDB;```
+   ```CREATE TABLE theme (
+     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     title VARCHAR(255),
+     content VARCHAR(255)
+   ) ENGINE=InnoDB;```
 
 -- Table user
-```CREATE TABLE user (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL
-) ENGINE=InnoDB;```
+   ```CREATE TABLE user (
+     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     username VARCHAR(255) NOT NULL,
+     email VARCHAR(255) NOT NULL,
+     password VARCHAR(255) NOT NULL,
+     created_at TIMESTAMP NULL,
+     updated_at TIMESTAMP NULL
+   ) ENGINE=InnoDB;```
 
 -- Table article
-```CREATE TABLE article (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  author VARCHAR(255) NOT NULL,
-  content LONGTEXT,
-  created_at TIMESTAMP NULL,
-  updated_at TIMESTAMP NULL,
-  theme_id INT,
-  FOREIGN KEY (theme_id) REFERENCES theme(id)
-) ENGINE=InnoDB;```
+   ```CREATE TABLE article (
+     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     title VARCHAR(255) NOT NULL,
+     author VARCHAR(255) NOT NULL,
+     content LONGTEXT,
+     created_at TIMESTAMP NULL,
+     updated_at TIMESTAMP NULL,
+     theme_id INT,
+     FOREIGN KEY (theme_id) REFERENCES theme(id)
+   ) ENGINE=InnoDB;```
 
 -- Table messages
-```CREATE TABLE messages (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  article_id INT NOT NULL,
-  user_id INT NOT NULL,
-  content VARCHAR(255),
-  FOREIGN KEY (article_id) REFERENCES article(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
-) ENGINE=InnoDB;```
+   ```CREATE TABLE messages (
+     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     article_id INT NOT NULL,
+     user_id INT NOT NULL,
+     content VARCHAR(255),
+     FOREIGN KEY (article_id) REFERENCES article(id),
+     FOREIGN KEY (user_id) REFERENCES user(id)
+   ) ENGINE=InnoDB;```
 
 ## ⚙️ 2. Installation et lancement du Frontend (Angular)
 
