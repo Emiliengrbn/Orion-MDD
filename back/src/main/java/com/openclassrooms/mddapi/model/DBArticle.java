@@ -14,6 +14,7 @@ public class DBArticle extends AuditTable {
     @ManyToOne
     @JoinColumn(name="theme_id", referencedColumnName = "id")
     private DBTheme theme;
+    @Lob
     private String content;
 
     public Integer getId() {

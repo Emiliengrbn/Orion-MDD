@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.sessionService.logOut();
     this.router.navigate(['/']);
-
   }
 
   isRouteActive(route: string): boolean {

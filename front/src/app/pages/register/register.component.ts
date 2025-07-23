@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthSuccess, RegisterRequest } from 'src/app/interfaces/auth';
 import { User } from 'src/app/interfaces/user';
@@ -16,7 +16,7 @@ export class RegisterComponent {
   public registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, this.passwordValidator]]
     });
 
   constructor(private fb: FormBuilder, private router: Router, private authService : AuthService, private sessionService: SessionService) {
@@ -36,6 +36,33 @@ export class RegisterComponent {
       error => this.onError = true
     );
   }
+
+  passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    if (!value) {
+      return null; // le validateur required gère ça
+    }
+
+    const errors = [];
+
+    if (value.length < 8) {
+      errors.push('au moins 8 caractères');
+    }
+
+    if (!/[0-9]/.test(value)) {
+      errors.push('au moins un chiffre');
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+      errors.push('au moins un caractère spécial');
+    }
+
+    return errors.length
+      ? { passwordInvalid: `Le mot de passe doit contenir ${errors.join(', ')}.` }
+      : null;
+  }
+
 
   goBack() {
     this.router.navigate(['/']);

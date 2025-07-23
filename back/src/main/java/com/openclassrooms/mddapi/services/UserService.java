@@ -26,9 +26,28 @@ public class UserService implements IUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private boolean isValidPassword(String password) {
+        if (password == null) return false;
+        // Longueur >= 8
+        if (password.length() < 8) return false;
+        // Regex : au moins une minuscule, une majuscule, un chiffre et un caractère spécial
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).{8,}$";
+        return password.matches(regex);
+    }
+
     @Override
     public TokenDTO register(RegisterDTO registerDTO) {
+        if (!isValidPassword(registerDTO.getPassword())) {
+            throw new IllegalArgumentException("Mot de passe invalide : il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+        }
+
+        final boolean isEmail = this.userRepository.existsByEmail(registerDTO.getEmail());
+        if (isEmail) {
+            throw new IllegalArgumentException("Utilisateur non trouvé");
+        }
+
         DBUser user = new DBUser();
+
         user.setUsername(registerDTO.getUsername());
         user.setEmail(registerDTO.getEmail());
         String hashedPassword = passwordEncoder.encode(registerDTO.getPassword());
@@ -40,11 +59,12 @@ public class UserService implements IUserService {
 
     @Override
     public TokenDTO login(UserDTO userDTO) {
-        DBUser user = userRepository.findByEmail(userDTO.getEmail());
+        DBUser user = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
+
         boolean passwordMatches = passwordEncoder.matches(userDTO.getPassword(), user.getPassword());
 
         if (!passwordMatches) {
-            throw new RuntimeException();
+            throw new IllegalArgumentException("Utilisateur non trouvé");
         }
         final String token = jwtService.generateToken(user.getEmail());
         return new TokenDTO(token);
@@ -52,7 +72,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO getUserByEmail(String email){
-        DBUser user = userRepository.findByEmail(email);
+        DBUser user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
         UserDTO me = new UserDTO();
         me.setEmail(user.getEmail());
         me.setId(user.getId());
@@ -85,6 +105,9 @@ public class UserService implements IUserService {
         }
 
         if (updateUserDTO.getPassword() != null && !updateUserDTO.getPassword().isBlank()) {
+            if (!isValidPassword(updateUserDTO.getPassword())) {
+                throw new IllegalArgumentException("Mot de passe invalide : il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+            }
             String hashedPassword = passwordEncoder.encode(updateUserDTO.getPassword());
             user.setPassword(hashedPassword);
         }

@@ -33,7 +33,7 @@ public class ThemeService implements IThemeService {
     @Override
     public List<ThemeDTO> getAllThemesWithSubscriptionStatus(String email) {
         List<DBTheme> allThemes = this.themeRepository.findAll();
-        DBUser user = userRepository.findByEmail(email);
+        DBUser user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
         Set<Integer> subscribedThemeIds = user.getSubscriptions().stream()
                 .map(DBTheme::getId)
                 .collect(Collectors.toSet());
@@ -50,15 +50,15 @@ public class ThemeService implements IThemeService {
     @Transactional
     @Override
     public void subsription(Integer id, String email) {
-        DBUser user = this.userRepository.findByEmail(email);
-        DBTheme theme = this.themeRepository.findById(id).orElseThrow(() -> new NotFoundException("Thème non trouvé"));
+        DBUser user = this.userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
+        DBTheme theme = this.themeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Thème non trouvé"));
         user.addSubscription(theme);
         this.userRepository.save(user);
     }
 
     @Override
     public void unSubsription(Integer id, String email) {
-        DBUser user = this.userRepository.findByEmail(email);
+        DBUser user = this.userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
         Set<DBTheme> themes = user.getSubscriptions();
         boolean removed = themes.removeIf(theme -> theme.getId().equals(id));
         user.setSubscriptions(themes);

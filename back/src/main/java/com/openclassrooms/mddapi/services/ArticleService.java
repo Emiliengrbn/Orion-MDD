@@ -45,7 +45,7 @@ public class ArticleService implements IArticleService {
         article.setTitle(articleDTO.getTitle());
 
         DBTheme theme = themeRepository.findById(articleDTO.getThemeId())
-                .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
+                .orElseThrow(() -> new IllegalArgumentException("Thème non trouvé"));
         article.setTheme(theme);
 
         UserDTO user = this.userService.getUserByEmail(email);
@@ -58,17 +58,15 @@ public class ArticleService implements IArticleService {
 
     @Override
     public DBArticle getArticleById(Integer id) {
-        DBArticle article = articleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Article non trouvé avec l'ID : " + id));
-
-        return article;
+        return articleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Article non trouvé avec l'ID : " + id));
     }
 
     @Override
     public List<DBArticle> getAllArticles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        DBUser user = userRepository.findByEmail(email);
+        DBUser user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
         Set<Integer> subscribedThemeIds = user.getSubscriptions().stream()
                 .map(DBTheme::getId)
                 .collect(Collectors.toSet());
